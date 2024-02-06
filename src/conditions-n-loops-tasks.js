@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,15 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b) {
+    if (a > c) {
+      return a;
+    }
+  } else if (b > c) {
+    return b;
+  }
+  return c;
 }
 
 /**
@@ -60,8 +67,12 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -82,8 +93,14 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a === 0 || b === 0 || c === 0 || a + b <= c || a + c <= b || b + c <= a) {
+    return false;
+  }
+  if (a === b || b === c || a === c) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -100,8 +117,25 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+
+function convertToRomanNumerals(num) {
+  const array = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+  if (num > 10) {
+    let output = '';
+    const tens = (num - (num % 10)) / 10;
+    switch (tens) {
+      case 1:
+        output += 'X';
+        break;
+      case 2:
+        output += 'XX';
+        break;
+      default:
+        output += 'XXX';
+    }
+    return output + array[(num % 10) - 1];
+  }
+  return array[num - 1];
 }
 
 /**
@@ -119,8 +153,30 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  const wordArray = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+  let output = '';
+  for (let i = 0; i < numberStr.length; i + 1) {
+    if (numberStr[i] === '.' || numberStr[i] === ',') {
+      output += 'point';
+    }
+    if (numberStr[i] === '-') {
+      output += 'minus';
+    }
+    output += wordArray[numberStr[i]];
+  }
+  return output;
 }
 
 /**
